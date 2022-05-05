@@ -1,7 +1,8 @@
-package org.programmers.ordermanagementsystem.respotiory;
+package org.programmers.ordermanagementsystem.repository;
 
 import org.programmers.ordermanagementsystem.domain.Item;
 import org.programmers.ordermanagementsystem.domain.ItemType;
+import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,7 +30,7 @@ public class JdbcItemRepository implements ItemRepository {
     }
 
     @Override
-    public Item save(ItemCreationArgs args) {
+    public Item save(ItemCreateForm args) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int updatedRow = template.update("INSERT INTO item(name, price, stock, type) VALUES(:name, :price, :stock, :type)",
                 toParamMap(args, new MapSqlParameterSource()), keyHolder);
@@ -38,20 +39,20 @@ public class JdbcItemRepository implements ItemRepository {
         }
         Long id = keyHolder.getKey().longValue();
 
-        return new Item(id, args.name(), args.price(), args.stock(), args.type());
+        return new Item(id, args.getName(), args.getPrice(), args.getStock(), args.getType());
     }
 
     private SqlParameterSource toParamMap(Item item) {
         MapSqlParameterSource paramMap = new MapSqlParameterSource();
         paramMap.addValue("id", item.getId());
-        return toParamMap(new ItemCreationArgs(item.getName(), item.getPrice(), item.getStock(), item.getType()), paramMap);
+        return toParamMap(new ItemCreateForm(item.getName(), item.getPrice(), item.getStock(), item.getType()), paramMap);
     }
 
-    private SqlParameterSource toParamMap(ItemCreationArgs args, MapSqlParameterSource paramMap) {
-        paramMap.addValue("name", args.name());
-        paramMap.addValue("price", args.price());
-        paramMap.addValue("stock", args.stock());
-        paramMap.addValue("type", args.type().toString());
+    private SqlParameterSource toParamMap(ItemCreateForm args, MapSqlParameterSource paramMap) {
+        paramMap.addValue("name", args.getName());
+        paramMap.addValue("price", args.getPrice());
+        paramMap.addValue("stock", args.getStock());
+        paramMap.addValue("type", args.getType().toString());
         return paramMap;
     }
 

@@ -2,9 +2,9 @@ package org.programmers.ordermanagementsystem.domain;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
-import org.programmers.ordermanagementsystem.respotiory.ItemCreationArgs;
-import org.programmers.ordermanagementsystem.respotiory.ItemRepository;
-import org.programmers.ordermanagementsystem.respotiory.JdbcItemRepository;
+import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
+import org.programmers.ordermanagementsystem.repository.ItemRepository;
+import org.programmers.ordermanagementsystem.repository.JdbcItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,9 +74,9 @@ class JdbcItemRepositoryTest {
 
     @BeforeEach
     void initializeData() {
-        item1 = itemRepository.save(new ItemCreationArgs("신속 배송 커피", 3000, 5000, COFFEE));
-        item2 = itemRepository.save(new ItemCreationArgs("노트북", 1000000, 600, COFFEE));
-        item3 = itemRepository.save(new ItemCreationArgs("미성년자가 못 사는 담배", 1000, 950, CIGARETTE));
+        item1 = itemRepository.save(new ItemCreateForm("신속 배송 커피", 3000, 5000, COFFEE));
+        item2 = itemRepository.save(new ItemCreateForm("노트북", 1000000, 600, COFFEE));
+        item3 = itemRepository.save(new ItemCreateForm("미성년자가 못 사는 담배", 1000, 950, CIGARETTE));
     }
 
     @AfterEach

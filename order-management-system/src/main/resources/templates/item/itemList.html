@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>상품 관리 페이지</title>
+</head>
+<body class="container-fluid">
+<h1>상품 관리 페이지</h1>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a th:href="@{/items/new}" class="btn btn-primary me-md-2" type="button">Add Item</a>
+</div>
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item: ${items}" th:object="${item}">
+        <td><a th:href="@{|/items/${item.id}|}" th:text="*{id}"/></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{stock}"></td>
+        <td th:text="*{type}"></td>
+        <td>
+            <form th:action="@{|/items/${item.id}/delete|}" th:method="post">
+                <button type="submit" class="btn btn-danger">삭제</button>
+            </form>
+        </td>
+        >
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
