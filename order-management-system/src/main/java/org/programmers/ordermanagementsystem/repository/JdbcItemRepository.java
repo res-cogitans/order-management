@@ -80,14 +80,6 @@ public class JdbcItemRepository implements ItemRepository {
         return template.query("SELECT * FROM item", rowMapper());
     }
 
-    @Override
-    public void delete(Long id) {
-        int updatedRow = template.update("DELETE FROM item WHERE id = :id", singletonMap("id", id));
-        if (updatedRow != 1) {
-            throw new IncorrectResultSizeDataAccessException(1, updatedRow);
-        }
-    }
-
     private RowMapper<Item> rowMapper() {
         return (rs, rowNum) -> {
             var id = rs.getLong("id");
@@ -97,5 +89,13 @@ public class JdbcItemRepository implements ItemRepository {
             var type = ItemType.valueOf(rs.getString("type"));
             return new Item(id, name, price, stock, type);
         };
+    }
+
+    @Override
+    public void delete(Long id) {
+        int updatedRow = template.update("DELETE FROM item WHERE id = :id", singletonMap("id", id));
+        if (updatedRow != 1) {
+            throw new IncorrectResultSizeDataAccessException(1, updatedRow);
+        }
     }
 }

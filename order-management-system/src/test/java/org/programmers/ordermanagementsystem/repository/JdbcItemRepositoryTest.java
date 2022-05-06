@@ -1,7 +1,8 @@
-package org.programmers.ordermanagementsystem.domain;
+package org.programmers.ordermanagementsystem.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
+import org.programmers.ordermanagementsystem.domain.Item;
 import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
 import org.programmers.ordermanagementsystem.repository.ItemRepository;
 import org.programmers.ordermanagementsystem.repository.JdbcItemRepository;
@@ -87,10 +88,10 @@ class JdbcItemRepositoryTest {
     @Test
     @DisplayName("갱신된 상품 데이터가 제대로 조회되어야 한다.")
     void updateAndFind() {
-        var itemToBeUpdate = new Item(item1.getId(), "리얼포스 키보드", 300000, 10, ELECTRONICS);
-        itemRepository.update(itemToBeUpdate);
+        var itemToBeUpdated = new Item(item1.getId(), "리얼포스 키보드", 300000, 10, ELECTRONICS);
+        itemRepository.update(itemToBeUpdated);
         var itemAfterUpdate = itemRepository.findById(item1.getId()).get();
-        assertThat(itemAfterUpdate).isEqualTo(itemToBeUpdate);
+        assertThat(itemAfterUpdate).isEqualTo(itemToBeUpdated);
     }
 
     @Test

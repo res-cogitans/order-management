@@ -1,7 +1,10 @@
 DROP SEQUENCE IF EXISTS ITEM_SEQ;
+DROP SEQUENCE IF EXISTS MEMBER_SEQ;
 DROP TABLE IF EXISTS ITEM;
+DROP TABLE IF EXISTS MEMBER;
 
 CREATE SEQUENCE ITEM_SEQ;
+CREATE SEQUENCE MEMBER_SEQ;
 
 CREATE TABLE ITEM
 (
@@ -11,3 +14,16 @@ CREATE TABLE ITEM
     stock INT    DEFAULT 0,
     type  VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE MEMBER
+(
+    id               BIGINT DEFAULT MEMBER_SEQ.nextval PRIMARY KEY,
+    name             VARCHAR(20) NOT NULL,
+    birth_date       DATE        NOT NULL,
+    email            VARCHAR(40) NOT NULL UNIQUE,
+    postcode         VARCHAR(50) NOT NULL,
+    road_address      VARCHAR(50) NOT NULL,
+    lot_number_address VARCHAR(50) NOT NULL,
+    detail_address    VARCHAR(50),
+    extra_address     VARCHAR(50) NOT NULL
+)
