@@ -1,10 +1,7 @@
 package org.programmers.ordermanagementsystem.service;
 
 import lombok.RequiredArgsConstructor;
-import org.programmers.ordermanagementsystem.domain.Item;
-import org.programmers.ordermanagementsystem.domain.Member;
-import org.programmers.ordermanagementsystem.domain.Order;
-import org.programmers.ordermanagementsystem.domain.OrderStatus;
+import org.programmers.ordermanagementsystem.domain.*;
 import org.programmers.ordermanagementsystem.dto.ItemDto;
 import org.programmers.ordermanagementsystem.dto.OrderCreateArgs;
 import org.programmers.ordermanagementsystem.dto.OrderCreateRequest;
@@ -35,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemCreateForm orderItem : orderItems) {
             var item = itemService.getItemById(orderItem.itemId());
             if (item.getType().isProhibitedForMinor() && isMemberMinorAge) {
-                throw new ProhibitedItemException("20세 이상만 구입 가능한 품목입니다: " + item.getName());
+                throw new ProhibitedItemException(Age.notMinorAgeBirthYear()+ "년생 이상만 구입 가능한 품목입니다: " + item.getName());
             }
             Item itemAfterOrder = item.order(orderItem.quantity());
             totalPrice += item.getPrice() * orderItem.quantity();

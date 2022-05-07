@@ -15,16 +15,20 @@ public class Age {
     @Getter
     private LocalDate birthDate;
 
+    public static int notMinorAgeBirthYear() {
+        return LocalDate.now().getYear() - 19;
+    }
+
     public boolean isMinorAge() {
-        return (getKoreanYearAge() < 20);
+        return (getKoreanYearAge() < 19);
     }
 
     private Integer getKoreanAge() {
-        return LocalDate.now().getYear() - birthDate.getYear();
+        return LocalDate.now().getYear() - birthDate.getYear() +1;
     }
 
     private Integer getKoreanYearAge() {
-        return LocalDate.now().getYear() - birthDate.getYear() -1;
+        return LocalDate.now().getYear() - birthDate.getYear();
     }
 
     private Integer getInternationalAge() {
@@ -40,6 +44,6 @@ public class Age {
 
     @Override
     public String toString() {
-        return getKoreanYearAge().toString();
+        return getInternationalAge().toString();
     }
 }
