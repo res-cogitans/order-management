@@ -1,7 +1,7 @@
 package org.programmers.ordermanagementsystem.repository;
 
 import org.programmers.ordermanagementsystem.domain.*;
-import org.programmers.ordermanagementsystem.dto.OrderCreateForm;
+import org.programmers.ordermanagementsystem.dto.OrderCreateArgs;
 import org.programmers.ordermanagementsystem.dto.OrderItemCreateForm;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -30,11 +30,11 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Override
-    public Order save(OrderCreateForm args) {
+    public Order save(OrderCreateArgs args) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        int updatedRow = template.update("INSERT INTO orders(postcode, road_address, lot_number_address," +
-                        " detail_address, extra_address, order_status, created_at, member_id) VALUES(:postcode, :roadAddress," +
-                        " :lotNumberAddress, :detailAddress, :extraAddress, :orderStatus, :createdAt, :memberId)",
+        int updatedRow = template.update("INSERT INTO orders(total_price, postcode, road_address, lot_number_address," +
+                        " detail_address, extra_address, order_status, created_at, member_id) VALUES(:totalPrice, :postcode," +
+                        " :roadAddress, :lotNumberAddress, :detailAddress, :extraAddress, :orderStatus, :createdAt, :memberId)",
                 toParamMap(args, new MapSqlParameterSource()), keyHolder);
         if (updatedRow != 1) {
             throw new IncorrectResultSizeDataAccessException(1, updatedRow);
@@ -51,12 +51,13 @@ public class JdbcOrderRepository implements OrderRepository {
             orderItems.add(new OrderItem(orderItemKeyHolder.getKey().longValue(), orderId, orderItemCreateForm.itemId(), orderItemCreateForm.quantity()));
         }
 
-        return new Order(orderId, new Address(args.getAddress().getPostcode(), args.getAddress().getRoadAddress(),
+        return new Order(orderId, args.getTotalPrice(), new Address(args.getAddress().getPostcode(), args.getAddress().getRoadAddress(),
                 args.getAddress().getLotNumberAddress(), args.getAddress().getDetailAddress(), args.getAddress().getExtraAddress())
                 , args.getOrderStatus(), args.getCreatedAt(), args.getMemberId(), orderItems);
     }
 
-    private SqlParameterSource toParamMap(OrderCreateForm args, MapSqlParameterSource paramMap) {
+    private SqlParameterSource toParamMap(OrderCreateArgs args, MapSqlParameterSource paramMap) {
+        paramMap.addValue("totalPrice", args.getTotalPrice());
         paramMap.addValue("postcode", args.getAddress().getPostcode());
         paramMap.addValue("roadAddress", args.getAddress().getRoadAddress());
         paramMap.addValue("lotNumberAddress", args.getAddress().getLotNumberAddress());
@@ -103,6 +104,7 @@ public class JdbcOrderRepository implements OrderRepository {
     private RowMapper<Order> rowMapper() {
         return (rs, rowNum) -> {
             var id = rs.getLong("id");
+            var totalPrice = rs.getInt("total_price");
             var email = new Email(rs.getString("email"));
             var address = new Address(rs.getString("postcode"), rs.getString("road_address"),
                     rs.getString("lot_number_address"), rs.getString("detail_address"),
@@ -111,7 +113,7 @@ public class JdbcOrderRepository implements OrderRepository {
             var createdAt = rs.getTimestamp("created_at").toLocalDateTime();
             var memberId = rs.getLong("member_id");
             List<OrderItem> orderItems = findOrderItemsOfOrder(id);
-            return new Order(id, address, orderStatus, createdAt, memberId, orderItems);
+            return new Order(id, totalPrice, address, orderStatus, createdAt, memberId, orderItems);
         };
     }
 

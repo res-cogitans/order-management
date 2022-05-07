@@ -23,7 +23,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item registerItem(ItemCreateForm form) {
-        System.out.println("form.getType() = " + form.getType());
         return itemRepository.save(form);
     }
 

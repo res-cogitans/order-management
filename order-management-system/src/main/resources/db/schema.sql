@@ -38,6 +38,7 @@ CREATE TABLE MEMBER
 CREATE TABLE ORDERS
 (
     id                 BIGINT DEFAULT ORDER_SEQ.nextval PRIMARY KEY,
+    total_price        INTEGER     NOT NULL,
     postcode           VARCHAR(50) NOT NULL,
     road_address       VARCHAR(50) NOT NULL,
     lot_number_address VARCHAR(50) NOT NULL,
@@ -46,7 +47,7 @@ CREATE TABLE ORDERS
     order_status       VARCHAR(20) NOT NULL,
     created_at         DATETIME(6) NOT NULL,
     member_id          BIGINT      NOT NULL,
-    FOREIGN KEY (member_id) REFERENCES MEMBER (id),
+    FOREIGN KEY (member_id) REFERENCES MEMBER (id)
 );
 
 CREATE TABLE ORDER_ITEM

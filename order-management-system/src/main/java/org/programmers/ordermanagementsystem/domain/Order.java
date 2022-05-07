@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Order {
     private Long id;
+    private Integer totalPrice;
     private Address address;
     private OrderStatus orderStatus;
     private LocalDateTime createdAt;

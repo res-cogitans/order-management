@@ -15,15 +15,19 @@ public class Age {
     @Getter
     private LocalDate birthDate;
 
-    public Integer getKoreanAge() {
+    public boolean isMinorAge() {
+        return (getKoreanYearAge() < 20);
+    }
+
+    private Integer getKoreanAge() {
         return LocalDate.now().getYear() - birthDate.getYear();
     }
 
-    public Integer getKoreanYearAge() {
+    private Integer getKoreanYearAge() {
         return LocalDate.now().getYear() - birthDate.getYear() -1;
     }
 
-    public Integer getInternationalAge() {
+    private Integer getInternationalAge() {
         if (isBirthDayPassedInThisYear()) {
             return LocalDate.now().getYear() - birthDate.getYear();
         }
