@@ -1,9 +1,18 @@
 package org.programmers.ordermanagementsystem.domain;
 
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Getter
+@AllArgsConstructor
 public class Order {
     private Long id;
     private Address address;
-    private LocalDateTime orderedAt;
+    private OrderStatus orderStatus;
+    private LocalDateTime createdAt;
+    private Long memberId;
+    private List<OrderItem> orderItems;
 }

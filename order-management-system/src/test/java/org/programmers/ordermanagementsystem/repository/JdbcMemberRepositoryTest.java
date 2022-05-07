@@ -108,7 +108,7 @@ class JdbcMemberRepositoryTest {
     @DisplayName("전체 상품 데이터 수, 내용이 일치해야 한다.")
     void findAll() {
         List<Member> members = memberRepository.findAll();
-        assertThat(members.containsAll(List.of(member1, member2, member3)));
+        assertThat(members.containsAll(List.of(member1, member2, member3))).isTrue();
         assertThat(members.size()).isEqualTo(3);
     }
 

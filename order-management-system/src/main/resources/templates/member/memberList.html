@@ -28,7 +28,7 @@
     </thead>
     <tbody>
     <tr th:each="member: ${members}" th:object="${member}">
-        <td th:text="*{id}"/></td>
+        <td th:text="*{id}"></td>
         <td th:text="*{name}"></td>
         <td th:text="*{age}"></td>
         <td th:text="*{email}"></td>
@@ -46,7 +46,6 @@
                 <button type="submit" class="btn btn-danger">삭제</button>
             </form>
         </td>
-        >
     </tr>
     </tbody>
 </table>

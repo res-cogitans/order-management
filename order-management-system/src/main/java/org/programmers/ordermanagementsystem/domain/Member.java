@@ -12,7 +12,6 @@ public class Member {
     private Long id;
     private String name;
     private Age age;
-    //TODO Email 검증
     private Email email;
     private Address address;
 }

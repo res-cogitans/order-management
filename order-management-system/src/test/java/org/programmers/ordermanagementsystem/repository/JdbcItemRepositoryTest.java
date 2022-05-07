@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.programmers.ordermanagementsystem.domain.Item;
 import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
-import org.programmers.ordermanagementsystem.repository.ItemRepository;
-import org.programmers.ordermanagementsystem.repository.JdbcItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,10 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.programmers.ordermanagementsystem.domain.ItemType.*;
 import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
@@ -98,7 +95,7 @@ class JdbcItemRepositoryTest {
     @DisplayName("전체 상품 데이터 수, 내용이 일치해야 한다.")
     void findAll() {
         List<Item> items = itemRepository.findAll();
-        assertThat(items.containsAll(List.of(item1, item2, item3)));
+        assertThat(items.containsAll(List.of(item1, item2, item3))).isTrue();
         assertThat(items.size()).isEqualTo(3);
     }
 
