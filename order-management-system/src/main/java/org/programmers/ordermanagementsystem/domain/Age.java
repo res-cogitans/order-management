@@ -15,15 +15,15 @@ public class Age {
     @Getter
     private LocalDate birthDate;
 
-    public int getKoreanAge() {
+    public Integer getKoreanAge() {
         return LocalDate.now().getYear() - birthDate.getYear();
     }
 
-    public int getKoreanYearAge() {
+    public Integer getKoreanYearAge() {
         return LocalDate.now().getYear() - birthDate.getYear() -1;
     }
 
-    public int getInternationalAge() {
+    public Integer getInternationalAge() {
         if (isBirthDayPassedInThisYear()) {
             return LocalDate.now().getYear() - birthDate.getYear();
         }
@@ -32,5 +32,10 @@ public class Age {
 
     private boolean isBirthDayPassedInThisYear() {
         return LocalDate.now().getDayOfYear() <= birthDate.getDayOfYear();
+    }
+
+    @Override
+    public String toString() {
+        return getKoreanYearAge().toString();
     }
 }

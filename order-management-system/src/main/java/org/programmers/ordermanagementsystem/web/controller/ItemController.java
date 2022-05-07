@@ -43,7 +43,6 @@ public class ItemController {
         var item = itemService.registerItem(form);
         redirectAttributes.addAttribute("id", item.getId());
 
-        System.out.println("item.getType() = " + item.getType());
         return "redirect:/items/{id}";
     }
 
@@ -52,12 +51,11 @@ public class ItemController {
         var item = ItemDto.from(itemService.getItemById(id));
         model.addAttribute("item", item);
         model.addAttribute("typeOptions", ItemType.values());
-
         return "/item/itemDetail";
     }
 
     @PostMapping("/items/{id}")
-    public String itemUpdate(@PathVariable Long id, @ModelAttribute("item") ItemDto form, Model model) {
+    public String updateItem(@PathVariable Long id, @ModelAttribute("item") ItemDto form, Model model) {
         var item = itemService.updateItem(form);
         model.addAttribute("item", item);
         model.addAttribute("typeOptions", ItemType.values());
@@ -66,7 +64,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/{id}/delete")
-    public String itemUpdate(@PathVariable Long id) {
+    public String deleteItem(@PathVariable Long id) {
         itemService.deleteItem(id);
 
         return "redirect:/items";

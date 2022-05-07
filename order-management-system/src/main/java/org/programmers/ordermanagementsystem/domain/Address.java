@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Address {
-    private String postCode;
+    private String postcode;
     private String roadAddress;
     private String lotNumberAddress;
     private String detailAddress;

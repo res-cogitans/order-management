@@ -50,7 +50,7 @@ public class JdbcMemberRepository implements MemberRepository {
         MapSqlParameterSource paramMap = new MapSqlParameterSource();
         paramMap.addValue("id", member.getId());
         return toParamMap(new MemberCreateForm(member.getName(), member.getAge().getBirthDate(), member.getEmail().getAddress(),
-                member.getAddress().getPostCode(), member.getAddress().getRoadAddress(), member.getAddress().getLotNumberAddress(),
+                member.getAddress().getPostcode(), member.getAddress().getRoadAddress(), member.getAddress().getLotNumberAddress(),
                 member.getAddress().getDetailAddress(), member.getAddress().getExtraAddress()), paramMap);
     }
 

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.programmers.ordermanagementsystem.domain.Item;
 import org.programmers.ordermanagementsystem.domain.ItemType;
 import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
-import org.programmers.ordermanagementsystem.repository.ItemRepository;
 import org.programmers.ordermanagementsystem.dto.ItemDto;
+import org.programmers.ordermanagementsystem.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,10 +27,9 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.save(form);
     }
 
-    //TODO: Null 발생시
     @Override
     public Item getItemById(Long id) {
-        return itemRepository.findById(id).get();
+        return itemRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
