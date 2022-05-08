@@ -29,14 +29,14 @@ public class OrderController {
         return "/order/orderList";
     }
 
-    @PostMapping("/members/{id}/complete")
+    @PostMapping("/orders/{id}/complete")
     public String completeOrder(@PathVariable Long id) {
         orderService.completeOrder(id);
 
         return "redirect:/orders";
     }
 
-    @PostMapping("/members/{id}/cancel")
+    @PostMapping("/orders/{id}/cancel")
     public String cancelOrder(@PathVariable Long id) {
         orderService.cancelOrder(id);
 

@@ -53,9 +53,10 @@ CREATE TABLE ORDERS
 CREATE TABLE ORDER_ITEM
 (
     id       BIGINT DEFAULT ORDER_ITEM_SEQ.nextval PRIMARY KEY,
-    order_id BIGINT NOT NULL,
-    item_id  BIGINT NOT NULL,
-    quantity INT    NOT NULL,
+    order_id BIGINT  NOT NULL,
+    item_id  BIGINT  NOT NULL,
+    quantity INT     NOT NULL,
+    name     VARCHAR NOT NULL,
     FOREIGN KEY (order_id) REFERENCES ORDERS (id) ON DELETE CASCADE,
     FOREIGN KEY (item_id) REFERENCES ITEM (id)
 );

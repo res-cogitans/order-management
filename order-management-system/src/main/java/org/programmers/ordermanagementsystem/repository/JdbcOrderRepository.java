@@ -46,9 +46,9 @@ public class JdbcOrderRepository implements OrderRepository {
 
         for (OrderItemCreateForm orderItemCreateForm : orderItemCreateForms) {
             KeyHolder orderItemKeyHolder = new GeneratedKeyHolder();
-            template.update("INSERT INTO order_item(order_id, item_id, quantity) VALUES(:orderId, :itemId, :quantity)",
+            template.update("INSERT INTO order_item(order_id, item_id, quantity, name) VALUES(:orderId, :itemId, :quantity, :name)",
                     toOrderItemParamMap(orderItemCreateForm, orderId), orderItemKeyHolder);
-            orderItems.add(new OrderItem(orderItemKeyHolder.getKey().longValue(), orderId, orderItemCreateForm.itemId(), orderItemCreateForm.quantity()));
+            orderItems.add(new OrderItem(orderItemKeyHolder.getKey().longValue(), orderId, orderItemCreateForm.itemId(), orderItemCreateForm.quantity(), orderItemCreateForm.name()));
         }
 
         return new Order(orderId, args.getTotalPrice(), new Address(args.getAddress().getPostcode(), args.getAddress().getRoadAddress(),
@@ -74,6 +74,7 @@ public class JdbcOrderRepository implements OrderRepository {
         paramMap.addValue("orderId", orderId);
         paramMap.addValue("itemId", orderItem.itemId());
         paramMap.addValue("quantity", orderItem.quantity());
+        paramMap.addValue("name", orderItem.name());
         return paramMap;
     }
 
@@ -81,9 +82,9 @@ public class JdbcOrderRepository implements OrderRepository {
     public void updateOrderStatus(Long id, OrderStatus orderStatus) {
         MapSqlParameterSource paramMap = new MapSqlParameterSource();
         paramMap.addValue("id", id);
-        paramMap.addValue("order_status", orderStatus);
+        paramMap.addValue("orderStatus", orderStatus.toString());
 
-        template.update("UPDATE orders SET drder_status = :orderStatus WHERE id = :id", paramMap);
+        template.update("UPDATE orders SET order_status = :orderStatus WHERE id = :id", paramMap);
     }
 
     @Override
@@ -105,7 +106,6 @@ public class JdbcOrderRepository implements OrderRepository {
         return (rs, rowNum) -> {
             var id = rs.getLong("id");
             var totalPrice = rs.getInt("total_price");
-            var email = new Email(rs.getString("email"));
             var address = new Address(rs.getString("postcode"), rs.getString("road_address"),
                     rs.getString("lot_number_address"), rs.getString("detail_address"),
                     rs.getString("extra_address"));
@@ -118,7 +118,7 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     private List<OrderItem> findOrderItemsOfOrder(Long orderId) {
-        return template.query("SELECT * FROM orderItem WHERE order_id = :orderId", singletonMap("orderId", orderId), orderItemRowMapper());
+        return template.query("SELECT * FROM order_item WHERE order_id = :orderId", singletonMap("orderId", orderId), orderItemRowMapper());
     }
 
     private RowMapper<OrderItem> orderItemRowMapper() {
@@ -127,7 +127,8 @@ public class JdbcOrderRepository implements OrderRepository {
             var orderId = rs.getLong("order_id");
             var itemId = rs.getLong("item_id");
             var quantity = rs.getInt("quantity");
-            return new OrderItem(id, orderId, itemId, quantity);
+            var name = rs.getString("name");
+            return new OrderItem(id, orderId, itemId, quantity, name);
         };
     }
 }

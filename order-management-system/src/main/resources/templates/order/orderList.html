@@ -22,6 +22,7 @@
         <th scope="col">CreatedAt</th>
         <th scope="col">MemberId</th>
         <th scope="col">Address</th>
+        <th scope="col">OrderItems</th>
     </tr>
     </thead>
     <tbody>
@@ -33,12 +34,16 @@
         <td th:text="*{memberId}"></td>
         <td>
             <input type="text" th:value="${order.address.postcode}" readonly>
-            <br>
             <input type="text" th:value="${order.address.roadAddress}" readonly>
+            <br>
             <input type="text" th:value="${order.address.lotNumberAddress}" readonly>
             <span id="guide" style="color:#999;display:none"></span>
             <input type="text" th:value="${order.address.detailAddress}" readonly>
             <input type="text" th:value="${order.address.extraAddress}" readonly>
+        </td>
+        <td th:each="orderItem: ${order.orderItems}">
+            <span th:text="|${orderItem.name} ${orderItem.quantity}개 주문|"/>
+            <br>
         </td>
         <td>
             <form th:action="@{|orders/${order.id}/complete|}" th:method="post">

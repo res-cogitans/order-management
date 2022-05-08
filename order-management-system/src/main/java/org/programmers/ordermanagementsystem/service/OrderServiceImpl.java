@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,6 +29,8 @@ public class OrderServiceImpl implements OrderService {
         Member orderedMember = memberService.getMemberById(request.getMemberId());
         boolean isMemberMinorAge = orderedMember.getAge().isMinorAge();
         List<OrderItemCreateForm> orderItems = request.getOrderItems();
+        List<OrderItemCreateForm> orderItemsAfterUpdate = new ArrayList<>();
+
         int totalPrice = 0;
         for (OrderItemCreateForm orderItem : orderItems) {
             var item = itemService.getItemById(orderItem.itemId());
@@ -37,10 +40,10 @@ public class OrderServiceImpl implements OrderService {
             Item itemAfterOrder = item.order(orderItem.quantity());
             totalPrice += item.getPrice() * orderItem.quantity();
             itemService.updateItem(ItemDto.from(itemAfterOrder));
+            orderItemsAfterUpdate.add(new OrderItemCreateForm(orderItem.itemId(), orderItem.quantity(), item.getName()));
         }
-
         return orderRepository.save(new OrderCreateArgs(totalPrice, orderedMember.getAddress(), OrderStatus.ACCEPTED,
-                LocalDateTime.now(), orderedMember.getId(), request.getOrderItems()));
+                LocalDateTime.now(), orderedMember.getId(), orderItemsAfterUpdate));
     }
 
     @Override
