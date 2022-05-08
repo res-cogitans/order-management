@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>주문 관리 페이지</title>
+</head>
+<body class="container-fluid">
+<h1>주문 관리 페이지</h1>
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">TotalPrice</th>
+        <th scope="col">OrderStatus</th>
+        <th scope="col">CreatedAt</th>
+        <th scope="col">MemberId</th>
+        <th scope="col">Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}" th:object="${order}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{totalPrice}"></td>
+        <td th:text="*{orderStatus}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{memberId}"></td>
+        <td>
+            <input type="text" th:value="${order.address.postcode}" readonly>
+            <br>
+            <input type="text" th:value="${order.address.roadAddress}" readonly>
+            <input type="text" th:value="${order.address.lotNumberAddress}" readonly>
+            <span id="guide" style="color:#999;display:none"></span>
+            <input type="text" th:value="${order.address.detailAddress}" readonly>
+            <input type="text" th:value="${order.address.extraAddress}" readonly>
+        </td>
+        <td>
+            <form th:action="@{|orders/${order.id}/complete|}" th:method="post">
+                <button type="submit" class="btn btn-danger">주문 완료 상태로 변경</button>
+            </form>
+            <form th:action="@{|orders/${order.id}/cancel|}" th:method="post">
+                <button type="submit" class="btn btn-danger">주문 취소 상태로 변경</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

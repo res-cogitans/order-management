@@ -42,4 +42,19 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(new OrderCreateArgs(totalPrice, orderedMember.getAddress(), OrderStatus.ACCEPTED,
                 LocalDateTime.now(), orderedMember.getId(), request.getOrderItems()));
     }
+
+    @Override
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
+
+    @Override
+    public void completeOrder(Long id) {
+        orderRepository.updateOrderStatus(id, OrderStatus.COMPLETE);
+    }
+
+    @Override
+    public void cancelOrder(Long id) {
+        orderRepository.updateOrderStatus(id, OrderStatus.CANCELED);
+    }
 }
