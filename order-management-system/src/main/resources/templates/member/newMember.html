@@ -9,10 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
-    <title>새 회원 등록</title>
+    <title>신규 회원 등록</title>
 </head>
 <body class="container-fluid">
-<h1>새 회원 등록</h1>
+<h1>신규 회원 등록</h1>
 <form th:action="@{/members/new}" th:object="${member}" method="post">
     <div class="mb-3">
         <label th:for="name" class="form-label">Name</label>
@@ -35,7 +35,9 @@
         <input type="text" th:field="*{detailAddress}" placeholder="상세주소">
         <input type="text" th:field="*{extraAddress}" placeholder="참고항목">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">회원 등록하기</button>
+    <a th:href="@{/members/}" class="btn btn-primary" type="button">목록으로 돌아가기</a>
+    <a th:href="@{/}" class="btn btn-primary" type="button">메인 화면으로</a>
 </form>
 </body>
 </html>

@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item updateItem(ItemDto form) {
-        return itemRepository.update(new Item(form.id(), form.name(), form.price(), form.stock(), ItemType.valueOf(form.type())));
+        return itemRepository.update(new Item(form.id(), form.name(), form.price(), form.stock(), form.type()));
     }
 
     @Override

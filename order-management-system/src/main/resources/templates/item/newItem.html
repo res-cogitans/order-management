@@ -29,11 +29,13 @@
     <div class="mb-3">
         <label th:for="type" class="form-label">Type</label>
         <select id="type" name="type" class="form-select">
-            <option th:selected>Open this select menu</option>
-            <option th:each="option : ${typeOptions}" th:value="${option}" th:text="${option}"></option>
+            <option th:selected>종류를 선택해주세요</option>
+            <option th:each="option : ${typeOptions}" th:value="${option}" th:text="${option.getName()}"></option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">상품 추가하기</button>
+    <a th:href="@{/items/}" class="btn btn-primary" type="button">목록으로 돌아가기</a>
+    <a th:href="@{/}" class="btn btn-primary" type="button">메인 화면으로</a>
 </form>
 </body>
 </html>

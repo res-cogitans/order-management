@@ -13,23 +13,26 @@
 </head>
 <body class="container-fluid">
 <h1>주문 관리 페이지</h1>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a th:href="@{/}" class="btn btn-primary me-md-2" type="button">메인 화면으로</a>
+</div>
 <table class="table table-hover table-striped">
     <thead>
     <tr>
-        <th scope="col">Id</th>
-        <th scope="col">TotalPrice</th>
-        <th scope="col">OrderStatus</th>
-        <th scope="col">CreatedAt</th>
-        <th scope="col">MemberId</th>
-        <th scope="col">Address</th>
-        <th scope="col">OrderItems</th>
+        <th scope="col">이름</th>
+        <th scope="col">주문 전체 가격</th>
+        <th scope="col">주문 상태</th>
+        <th scope="col">주문 일시</th>
+        <th scope="col">주문자 ID</th>
+        <th scope="col">주소</th>
+        <th scope="col">주문한 상품</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="order: ${orders}" th:object="${order}">
         <td th:text="*{id}"></td>
         <td th:text="*{totalPrice}"></td>
-        <td th:text="*{orderStatus}"></td>
+        <td th:text="*{orderStatus.getName()}"></td>
         <td th:text="*{createdAt}"></td>
         <td th:text="*{memberId}"></td>
         <td>
