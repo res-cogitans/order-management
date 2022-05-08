@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemCreateForm orderItem : orderItems) {
             var item = itemService.getItemById(orderItem.itemId());
             if (item.getType().isProhibitedForMinor() && isMemberMinorAge) {
-                throw new ProhibitedItemException(Age.notMinorAgeBirthYear()+ "년생 이상만 구입 가능한 품목입니다: " + item.getName());
+                throw new ProhibitedItemException(Age.notMinorAgeBirthYear() + "년생 이상만 구입 가능한 품목입니다: " + item.getName());
             }
             Item itemAfterOrder = item.order(orderItem.quantity());
             totalPrice += item.getPrice() * orderItem.quantity();

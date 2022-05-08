@@ -2,7 +2,6 @@ package org.programmers.ordermanagementsystem.service;
 
 import lombok.RequiredArgsConstructor;
 import org.programmers.ordermanagementsystem.domain.Item;
-import org.programmers.ordermanagementsystem.domain.ItemType;
 import org.programmers.ordermanagementsystem.dto.ItemCreateForm;
 import org.programmers.ordermanagementsystem.dto.ItemDto;
 import org.programmers.ordermanagementsystem.repository.ItemRepository;

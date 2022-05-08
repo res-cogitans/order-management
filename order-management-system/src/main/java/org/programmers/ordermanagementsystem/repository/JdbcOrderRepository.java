@@ -1,6 +1,9 @@
 package org.programmers.ordermanagementsystem.repository;
 
-import org.programmers.ordermanagementsystem.domain.*;
+import org.programmers.ordermanagementsystem.domain.Address;
+import org.programmers.ordermanagementsystem.domain.Order;
+import org.programmers.ordermanagementsystem.domain.OrderItem;
+import org.programmers.ordermanagementsystem.domain.OrderStatus;
 import org.programmers.ordermanagementsystem.dto.OrderCreateArgs;
 import org.programmers.ordermanagementsystem.dto.OrderItemCreateForm;
 import org.springframework.dao.EmptyResultDataAccessException;

@@ -24,7 +24,7 @@ public class Age {
     }
 
     private Integer getKoreanAge() {
-        return LocalDate.now().getYear() - birthDate.getYear() +1;
+        return LocalDate.now().getYear() - birthDate.getYear() + 1;
     }
 
     private Integer getKoreanYearAge() {
@@ -35,7 +35,7 @@ public class Age {
         if (isBirthDayPassedInThisYear()) {
             return LocalDate.now().getYear() - birthDate.getYear();
         }
-        return LocalDate.now().getYear() - birthDate.getYear() -1;
+        return LocalDate.now().getYear() - birthDate.getYear() - 1;
     }
 
     private boolean isBirthDayPassedInThisYear() {

@@ -14,11 +14,10 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Collections.*;
+import static java.util.Collections.singletonMap;
 
 @Repository
 public class JdbcItemRepository implements ItemRepository {

@@ -15,19 +15,19 @@
 <h1>새 상품 등록</h1>
 <form th:action="@{/items/new}" th:object="${item}" method="post">
     <div class="mb-3">
-        <label th:for="name" class="form-label">Name</label>
+        <label th:for="name" class="form-label">상품 이름</label>
         <input type="text" class="form-control" th:field="*{name}" placeholder="상품 이름을 입력하세요">
     </div>
     <div class="mb-3">
-        <label th:for="price" class="form-label">Price</label>
+        <label th:for="price" class="form-label">가격</label>
         <input type="number" class="form-control" th:field="*{price}" placeholder="상품 가격을 입력하세요">
     </div>
     <div class="mb-3">
-        <label th:for="stock" class="form-label">Stock</label>
+        <label th:for="stock" class="form-label">재고</label>
         <input type="number" class="form-control" th:field="*{stock}" placeholder="상품 재고 수를 입력하세요">
     </div>
     <div class="mb-3">
-        <label th:for="type" class="form-label">Type</label>
+        <label th:for="type" class="form-label">종류</label>
         <select id="type" name="type" class="form-select">
             <option th:selected>종류를 선택해주세요</option>
             <option th:each="option : ${typeOptions}" th:value="${option}" th:text="${option.getName()}"></option>

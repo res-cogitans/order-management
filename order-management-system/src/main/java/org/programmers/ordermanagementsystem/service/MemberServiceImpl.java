@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-        @Override
+    @Override
     public void deleteMember(Long id) {
         memberRepository.delete(id);
     }
